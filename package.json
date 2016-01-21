@@ -1,0 +1,25 @@
+{
+  "name": "liri-md2701",
+  "version": "1.0.0",
+  "description": "Liri homework",
+  "main": "keys.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MD4472/liri-node-app.git"
+  },
+  "author": "MD4472",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MD4472/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/MD4472/liri-node-app#readme",
+  "dependencies": {
+  "request": "^2.67.0",
+  "spotify": "^0.3.0",
+  "twitter": "^1.2.5"
+  }
+}
+
