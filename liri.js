@@ -1,5 +1,5 @@
 // Declare variables.
-debugger;
+
 var keys = require("./keys.js");
 var fs = require("fs");
 var request = require('request');
