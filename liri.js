@@ -1,5 +1,5 @@
 // Declare variables.
-
+// debugger;
 var keys = require("./keys.js");
 var fs = require("fs");
 var request = require('request');
@@ -22,42 +22,6 @@ switch(app){
   case 'do-what-it-says':
     doWhat();    
 }
-
-
-
-function spotifySong(){ 
-
-spotify.search({ type: 'track', query: input}, function(err, songs) {
- 
-  //   console.log("look here!" + input);
-  // }
-  if (!err ) 
-    {
-        if (input === undefined)
-          {input = "what's my age again";
-          }
-          else 
-          {input = process.argv[3];
-          }
-    // {console.log('Error occurred: ' + err);
-    //     return;
-    // } 
-    // Do something with 'data' 
-    var songData= songs.tracks.items;
-    // console.log(songData);
-    songData.forEach(function(songData){
-      console.log("Artist: " + songData.artists[0].name);
-      console.log("Album: " + songData.album.name);
-      console.log("Track: " + songData.name);
-      console.log("url: " + songData.preview_url); 
-      console.log("\n");
-      });
-    }
-  });
-}
-  //   for (var i=0; i < data.tracks.items.length; i ++){
-  //   console.log(data.tracks.items[i].artists[0].name);
-  // }
 
 
 function movie(){
@@ -114,23 +78,72 @@ client.get('statuses/user_timeline', params, function(error, tweets, response){
 });
 };
 
+function spotifySong(){ 
+console.log("hello " + input);
+    if (input === undefined) {
+    
+    input = "what's my age again";
+    //console.log('boo');
+    }
+  //  the else statement below:
+  //
+  //  else 
+  //    {input = process.argv[3];
+  //    }
+  //
+  // is not necessary because it causes a conflict when
+  // calling the <<do-what-it-says>> app.
+  // Upon investigation, the random.txt is read correctly. The input
+  // from the random.txt file is properly passed into 
+  // the spotifySong() function properly.   HOWEVER, if the else
+  // statement from above were used, <<input>> is now undefined at 
+  // that point after the doWhat() function has been run because 
+  // there is not a third argument being used.
+  // In other words, there is no process.argv[3]. Thus <<input>> is now
+  // undefined at that point.
+
+
+
+spotify.search({ type: 'track', query: input}, function(err, songs) {
+
+  if (!err)
+    {
+      var songData= songs.tracks.items;
+      // console.log(songData);
+      songData.forEach(function(songData){
+        console.log("Artist: " + songData.artists[0].name);
+        console.log("Album: " + songData.album.name);
+        console.log("Track: " + songData.name);
+        console.log("url: " + songData.preview_url); 
+        console.log("\n");
+          });
+        }
+      });
+    }
+  
+  //   for (var i=0; i < data.tracks.items.length; i ++){
+  //   console.log(data.tracks.items[i].artists[0].name);
+  // }
+
 function doWhat(){
   fs.readFile("random.txt", "utf8", function(err, data) {
     if (err) {
       throw err;
     }
     var newArray = data.split(",");
-    // console.log(newArray);
+    console.log(newArray);
     app = newArray[0];
     input = newArray[1];
-    // console.log(app);
-    // console.log(input);
+    console.log("Hi " + app);
+    console.log("Hi " + input);
     if (app === "my-tweets") 
     {tweets();
     } 
 
     else if (app === "spotify-this-song") 
-    {spotifySong();
+    { console.log("Hello " + input);
+      spotifySong();
+      
     } 
 
     else if (app === "movie-this") 
@@ -138,6 +151,7 @@ function doWhat(){
     }
   });
 };
+
 // };
 
 
